@@ -9,4 +9,4 @@
 [Github OAuth](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)  
 ## 工具  
 [Git](https://git-scm.com/downloads)  
-[VP](https://www.visual-paradigm.com/cn/) 
+[VP 时序图画图工具](https://www.visual-paradigm.com/cn/) 
