@@ -6,7 +6,9 @@
 [es 中文社区（参考模板）](https://elasticsearch.cn/explore)  
 [Github deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/)  
 [BootStrap](https://v3.bootcss.com/getting-started/)   
-[Github OAuth](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)  
+[Github OAuth](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)   
+[OKhttp 需要的代码和依赖](https://square.github.io/okhttp/)  
+[mavenc 仓库](https://mvnrepository.com/)
 ## 工具  
 [Git](https://git-scm.com/downloads)  
 [VP 时序图画图工具](https://www.visual-paradigm.com/cn/) 
