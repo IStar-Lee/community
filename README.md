@@ -8,7 +8,7 @@
 [BootStrap](https://v3.bootcss.com/getting-started/)   
 [Github OAuth](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)   
 [OKhttp 需要的代码和依赖](https://square.github.io/okhttp/)  
-[mavenc 仓库](https://mvnrepository.com/)
+[maven 仓库](https://mvnrepository.com/)
 ## 工具  
 [Git](https://git-scm.com/downloads)  
 [VP 时序图画图工具](https://www.visual-paradigm.com/cn/) 
