@@ -47,8 +47,14 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.62</version>
         </dependency>
+        <!--    h2数据库-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
