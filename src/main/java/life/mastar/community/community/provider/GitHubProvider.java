@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- *
+ *做了两次交互，就是用户在使用github登录社区的时候，社区获取登录用户的accesstoken和user信息
  */
 @Component
 public class GitHubProvider{
