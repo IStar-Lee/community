@@ -3,11 +3,13 @@ package life.mastar.community.community.mapper;
 import life.mastar.community.community.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 /**
  * 处理数据库表question相关信息
  */
 @Mapper
+@Component
 public interface QuestionMapper {
     /**
      * 发布问题，向question表中插入数据
