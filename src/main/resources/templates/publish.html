@@ -28,6 +28,9 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
+                <li th:if="${session.user != null}">
+                    <a href="/publish">发起</a>
+                </li>
                 <li th:if="${session.user == null}"><a href="https://github.com/login/oauth/authorize?client_id=c53ac12fc34d039e1fa7&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a></li>
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
@@ -46,29 +49,28 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起</h2>
             <hr>
-            <form action="">
+            <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="问题标题...">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="问题标题..." th:value="${title}">
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
-                    <textarea id="description" name="description" cols="30" class="form-control" rows="10"></textarea>
+                    <textarea id="description" name="description" cols="30" class="form-control" rows="10" th:text="${description}"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
-                    <input type="text" class="form-control" id="tag" name="tag" placeholder="问题标签，以逗号分割">
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="问题标签，以逗号分割" th:value="${tag}">
                 </div>
+                <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error != null}"></div>
                 <button type="submit" class="btn btn-success btn-publish">发布</button>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>问题发布申明</h3>
-            • 问题标题: 请用精简的语言描述您发布的问题，不超过25字
-
-            • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料：
-
-            • 选择标签: 选择一个或者多个合适的标签，中间用逗号隔开，不超过10个字
+            <div><strong>• 问题标题:</strong> 请用精简的语言描述您发布的问题，不超过25字</div>
+            <div><strong>• 问题补充:</strong> 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料：</div>
+            <div><strong>• 选择标签:</strong> 选择一个或者多个合适的标签，中间用逗号隔开，不超过10个字</div>
         </div>
     </div>
 </div>
