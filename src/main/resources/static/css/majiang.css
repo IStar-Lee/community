@@ -1,0 +1,24 @@
+body {
+    background-color: #efefef;
+}
+
+.main {
+    margin: 30px;
+    background-color: white;
+}
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+.btn-publish {
+    margin-bottom: 15px;
+    float: right;
+}
+.img-size {
+    width: 60px;
+    height: 60px;
+}
+.nav-backimg {
+    background-image: url("/img/nav-img.png");
+}

@@ -1,12 +1,13 @@
-package life.mastar.community.community.model;
+package life.mastar.community.community.dto;
 
+import life.mastar.community.community.model.User;
 import lombok.Data;
 
 /**
- * 发布问题，存储了数据库中发布问题的数据库表
+ * 相对于Question类多了一个User字段，用来发布问题后在index页面获取头像
  */
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -17,4 +18,5 @@ public class Question {
     private Integer viewCount;
     private Integer likeCount;
     private String tag;
+    private User user;
 }

@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/Community.css">
+    <link rel="stylesheet" href="/css/majiang.css">
     <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="container-fluid nav-backimg">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -59,7 +60,7 @@
                     <textarea id="description" name="description" cols="30" class="form-control" rows="10" th:text="${description}"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="tag">添加标签：</label>
+                    <label for="tag" class="color">添加标签：</label>
                     <input type="text" class="form-control" id="tag" name="tag" placeholder="问题标签，以逗号分割" th:value="${tag}">
                 </div>
                 <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error != null}"></div>
