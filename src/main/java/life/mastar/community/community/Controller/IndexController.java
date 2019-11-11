@@ -1,5 +1,6 @@
 package life.mastar.community.community.Controller;
 
+import life.mastar.community.community.dto.PaginationDTO;
 import life.mastar.community.community.dto.QuestionDTO;
 import life.mastar.community.community.mapper.QuestionMapper;
 import life.mastar.community.community.mapper.UserMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +28,9 @@ public class IndexController {
     private QuestionService questionService;
     @RequestMapping("/")
     public String index(HttpServletRequest request,
-                        Model model){
+                        Model model,
+                        @RequestParam(name="page" ,defaultValue = "1") Integer page,    //page记录当前页码
+                        @RequestParam(name = "size",defaultValue = "1") Integer size){  //size记录每页显示条数
         Cookie[] cookies = request.getCookies();
         if(cookies != null && cookies.length != 0){
             for(Cookie cookie:cookies){
@@ -40,8 +44,8 @@ public class IndexController {
                 }
             }
         }
-        List<QuestionDTO> questionList = questionService.list();
-        model.addAttribute("questions",questionList);
+        PaginationDTO paginationDTO = questionService.list(page,size);
+        model.addAttribute("paginationDTO",paginationDTO);
         return "index";
     }
 }

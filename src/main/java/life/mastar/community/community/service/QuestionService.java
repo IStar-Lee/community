@@ -1,5 +1,6 @@
 package life.mastar.community.community.service;
 
+import life.mastar.community.community.dto.PaginationDTO;
 import life.mastar.community.community.dto.QuestionDTO;
 import life.mastar.community.community.mapper.QuestionMapper;
 import life.mastar.community.community.mapper.UserMapper;
@@ -21,9 +22,20 @@ public class QuestionService {
     private UserMapper userMapper;
     @Autowired
     private QuestionMapper questionMapper;
-    public List<QuestionDTO> list() {
-        List<Question> questionList = questionMapper.list();//从question表中查所有的数据
+    public PaginationDTO list(Integer page, Integer size) {
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.questionCount();
+        paginationDTO.setPagination(totalCount,size,page);
+        Integer offSet = size*(page-1);
+        if(page < 1){
+            page = 1;
+        }
+        if(page > paginationDTO.getTotalPage()){
+            page = paginationDTO.getTotalPage();
+        }
+        List<Question> questionList = questionMapper.list(offSet,size);//从question表中查所有的数据
         List<QuestionDTO> questionDTOList = new ArrayList<>();
+
         for (Question question : questionList) {
             User user = userMapper.findById(question.getCreator());//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
             QuestionDTO questionDTO = new QuestionDTO();
@@ -31,6 +43,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+        paginationDTO.setQuestions(questionDTOList);
+        return paginationDTO;
     }
 }

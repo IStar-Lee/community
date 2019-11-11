@@ -22,3 +22,7 @@ body {
 .nav-backimg {
     background-image: url("/img/nav-img.png");
 }
+.pagination-location {
+    float: right;
+    margin-right: 100px;
+}

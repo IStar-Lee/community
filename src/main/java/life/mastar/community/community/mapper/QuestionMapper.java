@@ -20,6 +20,8 @@ public interface QuestionMapper {
      */
     @Insert("insert into question (title,description,creator,gmt_create,gmt_modify,tag) values(#{title},#{description},#{creator},#{gmtCreate},#{gmtModify},#{tag})")
     public void create(Question question);
-    @Select("select * from question")
-    public List<Question> list();
+    @Select("select * from question limit #{offSet},#{size}")
+    public List<Question> list(Integer offSet, Integer size);
+    @Select("select count(1) from question")
+    public Integer questionCount();
 }
