@@ -30,7 +30,7 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name="page" ,defaultValue = "1") Integer page,    //page记录当前页码
-                        @RequestParam(name = "size",defaultValue = "1") Integer size){  //size记录每页显示条数
+                        @RequestParam(name = "size",defaultValue = "5") Integer size){  //size记录每页显示条数
         Cookie[] cookies = request.getCookies();
         if(cookies != null && cookies.length != 0){
             for(Cookie cookie:cookies){
