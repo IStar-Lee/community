@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 发布问题处理
+ */
 @Controller
 public class PublishController {
     @Autowired
