@@ -1,7 +1,6 @@
 package life.mastar.community.community.Controller;
 
 import life.mastar.community.community.mapper.QuestionMapper;
-import life.mastar.community.community.mapper.UserMapper;
 import life.mastar.community.community.model.Question;
 import life.mastar.community.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -19,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class PublishController {
-    @Autowired
-    private UserMapper userMapper;
     @Autowired
     private QuestionMapper questionMapper;
     /**
@@ -57,20 +53,7 @@ public class PublishController {
             return "publish";
         }
         //首先获取到当前登录用户的信息
-        Cookie[] cookies = request.getCookies();
-        User user = null;
-        if(cookies != null && cookies.length != 0){
-            for(Cookie cookie:cookies){
-                if(cookie.getName().equals("token")){
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if(user != null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User)request.getSession().getAttribute("user");
         if(user == null){
             model.addAttribute("error","您还没有登陆!");
             return "publish";
