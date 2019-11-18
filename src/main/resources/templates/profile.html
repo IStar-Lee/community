@@ -11,7 +11,7 @@
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div>
-<div class="container-fluid main profile">
+<div class="container-fluid main profile community-content-location">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span th:text="${sectionName}"></span></h2>
@@ -19,11 +19,15 @@
             <div class="media" th:each="question : ${paginationDTO.questions}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded img-size" th:src="${question.user.avatarUrl}">
+                        <a th:href="@{'/question/'+${question.id}}">
+                            <img class="media-object img-rounded img-size" th:src="${question.user.avatarUrl}">
+                        </a>
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <h4 class="media-heading">
+                        <a th:href="@{'/question/'+${question.id}}"  th:text="${question.title}" class="hover title"></a>
+                    </h4>
                     <span th:text="${question.description}"></span><br>
                     <span class="text-desc"><span th:text = "${question.likeCount}"></span>  人关注
                         • <span th:text="${question.commentCount}"></span> 个回复

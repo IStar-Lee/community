@@ -46,4 +46,15 @@ body {
     color: black;
     font-weight: bold ;
 }
+.community-content-location {
+    width: 1140px;
+    margin: auto;
+}
+.community-nav-location {
+    width: 1140px;
+    margin: auto;
+}
+.community-body-background {
+    background-image: url("/img/body-background.png");
+}
 
