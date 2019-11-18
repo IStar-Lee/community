@@ -1,10 +1,7 @@
 package life.mastar.community.community.mapper;
 
 import life.mastar.community.community.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -35,4 +32,15 @@ public interface UserMapper {
      */
     @Select("select * from user where id=#{id}")
     User findById(@Param("id") Integer id);
+
+    /**
+     * 根据account_Id找
+     * @param accountId
+     * @return
+     */
+    @Select("select * from user where account_id=#{accountId}")
+    User findByAccountId(String accountId);
+
+    @Update("update user set name = #{name}, avatar_url=#{avatarUrl}, token=#{token}, gmt_modify=#{gmtModify} where account_id=#{accountId}")
+    void update(User user);
 }
