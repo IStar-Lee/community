@@ -29,3 +29,21 @@ body {
 .profile .section {
     margin-top: 20px;
 }
+.community-menu {
+    color: #999;
+    font-size: 12px;
+}
+.hover:hover {
+    text-decoration:none;
+}
+.hover:active {
+    text-decoration:none;
+}
+.hover:visited {
+    text-decoration:none;
+}
+.title {
+    color: black;
+    font-weight: bold ;
+}
+
