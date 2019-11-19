@@ -1,9 +1,7 @@
 package life.mastar.community.community.mapper;
 
 import life.mastar.community.community.model.Question;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,4 +28,8 @@ public interface QuestionMapper {
     Integer questionCountByUserId(Integer userId);
     @Select("select * from question where id=#{Id}")
     Question getById(Integer id);
+    @Update("update question set title=#{title},description=#{description},tag=#{tag},gmt_modify=#{gmtModify} where id=#{id}")
+    void update(Question question);
+    @Delete("delete from question where id=#{id}")
+    void delete(Integer id);
 }

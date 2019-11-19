@@ -22,6 +22,13 @@ public class QuestionService {
     private UserMapper userMapper;
     @Autowired
     private QuestionMapper questionMapper;
+
+    /**
+     * 根据页数，每页问题数获取问题集
+     * @param page
+     * @param size
+     * @return
+     */
     public PaginationDTO list(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = questionMapper.questionCount();
@@ -54,6 +61,13 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    /**
+     * “我的问题”
+     * @param userId
+     * @param page
+     * @param size
+     * @return
+     */
     public PaginationDTO list(Integer userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = questionMapper.questionCountByUserId(userId);
@@ -86,6 +100,11 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    /**
+     * 根据问题id获取问题
+     * @param id
+     * @return
+     */
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.getById(id);
         User user = userMapper.findById(question.getCreator());
@@ -93,5 +112,22 @@ public class QuestionService {
         BeanUtils.copyProperties(question,questionDTO);//BeanUtils.copyProperties就是把question的属性copy到questionDTO
         questionDTO.setUser(user);
         return questionDTO;
+    }
+
+    /**
+     * 点击发布，判断是新建问题还是修改问题
+     * @param question
+     */
+    public void createOrUpdate(Question question) {
+        if(question.getId() != null){
+            //更新
+            question.setGmtModify(System.currentTimeMillis());
+            questionMapper.update(question);
+        }else{
+            //新建
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModify(question.getGmtCreate());
+            questionMapper.create(question);
+        }
     }
 }

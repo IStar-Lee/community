@@ -7,6 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 编辑发布过的问题，用于前后台数据的交互
@@ -18,6 +22,13 @@ public class QuestionController {
 
     @GetMapping("/question/{id}")
     public String question(@PathVariable (name = "id") Integer id, Model model){
+        QuestionDTO questionDTO = questionService.getById(id);
+        model.addAttribute("question",questionDTO);
+        return "question";
+    }
+    @GetMapping("/question/{id}/{isDeleteQuestion}")
+    public String delete(@PathVariable (name = "id") Integer id, Model model,
+                         @PathVariable (name = "isDeleteQuestion") Integer isDeleteQuestion){
         QuestionDTO questionDTO = questionService.getById(id);
         model.addAttribute("question",questionDTO);
         return "question";

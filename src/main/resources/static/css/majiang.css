@@ -1,10 +1,6 @@
 body {
     background-color: #efefef;
-}
-
-.main {
-    margin: 30px;
-    background-color: white;
+    /*background-image: url("/img/body.png");*/
 }
 .text-desc {
     font-size: 12px;
@@ -49,12 +45,21 @@ body {
 .community-content-location {
     width: 1140px;
     margin: auto;
+    background-color: white;
 }
 .community-nav-location {
     width: 1140px;
     margin: auto;
 }
-.community-body-background {
-    background-image: url("/img/body-background.png");
+.nav-location {
+    margin-bottom: 50px;
 }
+.community-delete-style {
+    margin-left: 30px;
+    cursor: pointer;
+}
+.community-delete-style:hover {
+    color: rgb(35,82,124);
+}
+
 
