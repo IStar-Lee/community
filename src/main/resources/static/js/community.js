@@ -19,10 +19,13 @@ $(function () {
                             type:"success"
                         },
                         function (isConfirm) {
-                            // var id = document.getElementById("questionId")
-                            // alert("**"+id)
-                            // window.location.href("/question/")
-                            // window.location.replace("/")
+                            var id = document.getElementById("questionId").value;
+                            var temp = document.createElement("form");
+                            temp.action = "/question/"+id+"/delete";
+                            temp.method = "get";
+                            temp.style.display = "none";
+                            document.body.appendChild(temp);
+                            temp.submit();
                         })
                 }
             });

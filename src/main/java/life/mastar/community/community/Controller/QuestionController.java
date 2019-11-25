@@ -20,17 +20,32 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 点击详情页的“编辑”
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/question/{id}")
     public String question(@PathVariable (name = "id") Integer id, Model model){
         QuestionDTO questionDTO = questionService.getById(id);
         model.addAttribute("question",questionDTO);
         return "question";
     }
+
+    /**
+     * 点击详情页的“删除”
+     * @param id
+     * @param model
+     * @param isDeleteQuestion
+     * @return
+     */
     @GetMapping("/question/{id}/{isDeleteQuestion}")
     public String delete(@PathVariable (name = "id") Integer id, Model model,
-                         @PathVariable (name = "isDeleteQuestion") Integer isDeleteQuestion){
-        QuestionDTO questionDTO = questionService.getById(id);
-        model.addAttribute("question",questionDTO);
-        return "question";
+                         @PathVariable (name = "isDeleteQuestion") String isDeleteQuestion){
+        if("delete".equals(isDeleteQuestion)){
+            questionService.deleteById(id);
+        }
+        return "redirect:/";
     }
 }

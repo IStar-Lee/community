@@ -109,9 +109,18 @@ public class QuestionService {
         Question question = questionMapper.getById(id);
         User user = userMapper.findById(question.getCreator());
         QuestionDTO questionDTO = new QuestionDTO();
-        BeanUtils.copyProperties(question,questionDTO);//BeanUtils.copyProperties就是把question的属性copy到questionDTO
+        BeanUtils.copyProperties(question,questionDTO);
         questionDTO.setUser(user);
         return questionDTO;
+    }
+
+    /**
+     * 根据id删除问题
+     * @param id
+     * @return
+     */
+    public void deleteById(Integer id) {
+        questionMapper.delete(id);
     }
 
     /**
@@ -130,4 +139,5 @@ public class QuestionService {
             questionMapper.create(question);
         }
     }
+
 }
