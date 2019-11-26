@@ -5,7 +5,10 @@ import life.mastar.community.community.dto.QuestionDTO;
 import life.mastar.community.community.mapper.QuestionMapper;
 import life.mastar.community.community.mapper.UserMapper;
 import life.mastar.community.community.model.Question;
+import life.mastar.community.community.model.QuestionExample;
 import life.mastar.community.community.model.User;
+import life.mastar.community.community.model.UserExample;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +34,7 @@ public class QuestionService {
      */
     public PaginationDTO list(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = questionMapper.questionCount();
+        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
         //获取总页数
         Integer totalPage;
         if(totalCount % size == 0){
@@ -47,14 +50,15 @@ public class QuestionService {
             page = totalPage;
         }
         paginationDTO.setPagination(totalPage,page);
-        List<Question> questionList = questionMapper.list(offSet,size);//从question表中查所有的数据
+        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offSet, size));//从question表中查所有的数据,并分页
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-
         for (Question question : questionList) {
-            User user = userMapper.findById(question.getCreator());//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
+            UserExample example = new UserExample();
+            example.createCriteria().andIdEqualTo(question.getCreator());
+            List<User> user = userMapper.selectByExample(example);//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);//BeanUtils.copyProperties就是把question的属性copy到questionDTO
-            questionDTO.setUser(user);
+            questionDTO.setUser(user.get(0));
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestions(questionDTOList);
@@ -70,7 +74,9 @@ public class QuestionService {
      */
     public PaginationDTO list(Integer userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = questionMapper.questionCountByUserId(userId);
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(userId);
+        Integer totalCount = (int)questionMapper.countByExample(example);
         //获取总页数
         Integer totalPage;
         if(totalCount % size == 0){
@@ -86,14 +92,18 @@ public class QuestionService {
             page = totalPage;
         }
         paginationDTO.setPagination(totalPage,page);//分页信息
-        List<Question> questionList = questionMapper.listByUserId(userId,offSet,size);//根据userid从question表中查所有的数据
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria().andCreatorEqualTo(userId);
+        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offSet, size));//从question表中查所有的数据,并分页
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questionList) {
-            User user = userMapper.findById(question.getCreator());//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
+            UserExample example1 = new UserExample();
+            example.createCriteria().andIdEqualTo(question.getCreator());
+            List<User> user = userMapper.selectByExample(example1);//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);//BeanUtils.copyProperties就是把question的属性copy到questionDTO
-            questionDTO.setUser(user);
+            questionDTO.setUser(user.get(0));
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestions(questionDTOList);
@@ -106,8 +116,8 @@ public class QuestionService {
      * @return
      */
     public QuestionDTO getById(Integer id) {
-        Question question = questionMapper.getById(id);
-        User user = userMapper.findById(question.getCreator());
+        Question question = questionMapper.selectByPrimaryKey(id);
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         questionDTO.setUser(user);
@@ -120,7 +130,7 @@ public class QuestionService {
      * @return
      */
     public void deleteById(Integer id) {
-        questionMapper.delete(id);
+        questionMapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -130,13 +140,20 @@ public class QuestionService {
     public void createOrUpdate(Question question) {
         if(question.getId() != null){
             //更新
-            question.setGmtModify(System.currentTimeMillis());
-            questionMapper.update(question);
+            Question updateQuestion = new Question();
+            updateQuestion.setGmtModify(System.currentTimeMillis());
+            updateQuestion.setTitle(question.getTitle());
+            updateQuestion.setDescription(question.getDescription());
+            updateQuestion.setTag(question.getTag());
+            QuestionExample example = new QuestionExample();
+            example.createCriteria().andIdEqualTo(question.getId());
+            System.out.println(question.getId());
+            questionMapper.updateByExampleSelective(updateQuestion,example);
         }else{
             //新建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModify(question.getGmtCreate());
-            questionMapper.create(question);
+            questionMapper.insert(question);
         }
     }
 

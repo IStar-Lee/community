@@ -2,8 +2,11 @@ package life.mastar.community.community.service;
 
 import life.mastar.community.community.mapper.UserMapper;
 import life.mastar.community.community.model.User;
+import life.mastar.community.community.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 用户信息中间层
@@ -13,14 +16,19 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
     public void createOrUpdate(User user){
-        User dbUser = userMapper.findByAccountId(user.getAccountId());
-        if(dbUser != null){
+        UserExample example = new UserExample();
+        example.createCriteria().andAccountIdEqualTo(user.getAccountId());
+        List<User> users = userMapper.selectByExample(example);
+        if(users.size() != 0){
             //执行更新
-            dbUser.setGmtModify(System.currentTimeMillis());
-            dbUser.setToken(user.getToken());
-            dbUser.setName(user.getName());
-            dbUser.setAvatarUrl(user.getAvatarUrl());
-            userMapper.update(dbUser);
+            User updateUser = users.get(0);
+            updateUser.setGmtModify(System.currentTimeMillis());
+            updateUser.setToken(user.getToken());
+            updateUser.setName(user.getName());
+            updateUser.setAvatarUrl(user.getAvatarUrl());
+            UserExample example1 = new UserExample();
+            example1.createCriteria().andIdEqualTo(updateUser.getId());
+            userMapper.updateByExampleSelective(updateUser, example1);
         }else {
             //执行创建
             user.setGmtCreate(System.currentTimeMillis());

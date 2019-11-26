@@ -9,8 +9,13 @@
 [Github OAuth](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)   
 [OKhttp 需要的代码和依赖](https://square.github.io/okhttp/)  
 [maven 仓库](https://mvnrepository.com/)  
-[thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
+[thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
+[Mybatis Generator](http://mybatis.org/generator)
 ## 工具  
 [Git](https://git-scm.com/downloads)  
 [VP 时序图画图工具](https://www.visual-paradigm.com/cn/)   
 [Lombok工具](https://projectlombok.org/)
+## 脚本
+```bash
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate   //运行Mybatis Generator
+```
