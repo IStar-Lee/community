@@ -1,16 +1,13 @@
 package life.mastar.community.community.Controller;
 
 import life.mastar.community.community.dto.QuestionDTO;
+import life.mastar.community.community.model.Question;
 import life.mastar.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 编辑发布过的问题，用于前后台数据的交互
@@ -21,7 +18,7 @@ public class QuestionController {
     private QuestionService questionService;
 
     /**
-     * 点击详情页的“编辑”
+     * 点击列表页的问题，进入到question详情页
      * @param id
      * @param model
      * @return
@@ -29,6 +26,7 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String question(@PathVariable (name = "id") Integer id, Model model){
         QuestionDTO questionDTO = questionService.getById(id);
+        questionService.incView(id);
         model.addAttribute("question",questionDTO);
         return "question";
     }

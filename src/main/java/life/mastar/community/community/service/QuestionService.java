@@ -4,7 +4,7 @@ import life.mastar.community.community.dto.PaginationDTO;
 import life.mastar.community.community.dto.QuestionDTO;
 import life.mastar.community.community.exception.CustomizeErrorCode;
 import life.mastar.community.community.exception.CustomizeException;
-import life.mastar.community.community.exception.ICustomizeErrorCode;
+import life.mastar.community.community.mapper.QuestionExtMapper;
 import life.mastar.community.community.mapper.QuestionMapper;
 import life.mastar.community.community.mapper.UserMapper;
 import life.mastar.community.community.model.Question;
@@ -28,7 +28,8 @@ public class QuestionService {
     private UserMapper userMapper;
     @Autowired
     private QuestionMapper questionMapper;
-
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
     /**
      * 根据页数，每页问题数获取问题集
      * @param page
@@ -168,4 +169,10 @@ public class QuestionService {
         }
     }
 
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
+    }
 }
