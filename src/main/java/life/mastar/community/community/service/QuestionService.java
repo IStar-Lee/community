@@ -2,6 +2,9 @@ package life.mastar.community.community.service;
 
 import life.mastar.community.community.dto.PaginationDTO;
 import life.mastar.community.community.dto.QuestionDTO;
+import life.mastar.community.community.exception.CustomizeErrorCode;
+import life.mastar.community.community.exception.CustomizeException;
+import life.mastar.community.community.exception.ICustomizeErrorCode;
 import life.mastar.community.community.mapper.QuestionMapper;
 import life.mastar.community.community.mapper.UserMapper;
 import life.mastar.community.community.model.Question;
@@ -117,6 +120,9 @@ public class QuestionService {
      */
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
@@ -147,12 +153,17 @@ public class QuestionService {
             updateQuestion.setTag(question.getTag());
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(question.getId());
-            System.out.println(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion,example);
+            int updateNum = questionMapper.updateByExampleSelective(updateQuestion,example);
+            if(updateNum == 0){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }else{
             //新建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModify(question.getGmtCreate());
+            question.setCommentCount(0);
+            question.setLikeCount(0);
+            question.setViewCount(0);
             questionMapper.insert(question);
         }
     }

@@ -13,20 +13,13 @@ $(function () {
             },
             function(isConfirm){
                 if (isConfirm) {
-                    swal({
-                            title:"删除成功",
-                            text:"您发布的问题已经被删除！",
-                            type:"success"
-                        },
-                        function (isConfirm) {
-                            var id = document.getElementById("questionId").value;
-                            var temp = document.createElement("form");
-                            temp.action = "/question/"+id+"/delete";
-                            temp.method = "get";
-                            temp.style.display = "none";
-                            document.body.appendChild(temp);
-                            temp.submit();
-                        })
+                    var id = document.getElementById("questionId").value;
+                    var temp = document.createElement("form");
+                    temp.action = "/question/"+id+"/delete";
+                    temp.method = "get";
+                    temp.style.display = "none";
+                    document.body.appendChild(temp);
+                    temp.submit();
                 }
             });
     })

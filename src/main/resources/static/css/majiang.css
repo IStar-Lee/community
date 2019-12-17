@@ -62,4 +62,10 @@ body {
     color: rgb(35,82,124);
 }
 
+.hero-unit {
+    width: 1140px;
+    height: 500px;
+    margin-top: 300px;
+}
+
 
