@@ -1,5 +1,6 @@
 package life.mastar.community.community.service;
 
+import life.mastar.community.community.constant.UserConstant;
 import life.mastar.community.community.dto.PaginationDTO;
 import life.mastar.community.community.dto.QuestionDTO;
 import life.mastar.community.community.exception.CustomizeErrorCode;
@@ -57,12 +58,24 @@ public class QuestionService {
         List<Question> questionList = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offSet, size));//从question表中查所有的数据,并分页
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questionList) {
+            QuestionDTO questionDTO = new QuestionDTO();
             UserExample example = new UserExample();
             example.createCriteria().andIdEqualTo(question.getCreator());
             List<User> user = userMapper.selectByExample(example);//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
-            QuestionDTO questionDTO = new QuestionDTO();
+            if(user.size() == 0){
+                //已经删除了发布问题的人,将该问题的发布人设置为匿名用户
+                QuestionExample  questionExample = new QuestionExample();
+                questionExample.createCriteria().andIdEqualTo(question.getId());
+                question.setCreator(UserConstant.DEFAULTID);
+                questionMapper.updateByPrimaryKeySelective(question);
+                UserExample defaultExample = new UserExample();
+                defaultExample.createCriteria().andIdEqualTo(UserConstant.DEFAULTID);
+                List<User> defaultUser = userMapper.selectByExample(defaultExample);
+                questionDTO.setUser(defaultUser.get(0));
+            }else{
+                questionDTO.setUser(user.get(0));
+            }
             BeanUtils.copyProperties(question,questionDTO);//BeanUtils.copyProperties就是把question的属性copy到questionDTO
-            questionDTO.setUser(user.get(0));
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestions(questionDTOList);
@@ -102,12 +115,10 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questionList) {
-            UserExample example1 = new UserExample();
-            example.createCriteria().andIdEqualTo(question.getCreator());
-            List<User> user = userMapper.selectByExample(example1);//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
+            User user = userMapper.selectByPrimaryKey(question.getCreator());//将question中的creator拿出来到user表中找到这个实体，以便于拿到头像
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);//BeanUtils.copyProperties就是把question的属性copy到questionDTO
-            questionDTO.setUser(user.get(0));
+            questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestions(questionDTOList);

@@ -1,9 +1,8 @@
 package life.mastar.community.community.Controller;
 
-import com.sun.deploy.net.HttpResponse;
+import life.mastar.community.community.constant.UserConstant;
 import life.mastar.community.community.dto.AccessTokenDTO;
 import life.mastar.community.community.dto.GithubUser;
-import life.mastar.community.community.mapper.UserMapper;
 import life.mastar.community.community.model.User;
 import life.mastar.community.community.provider.GitHubProvider;
 import life.mastar.community.community.service.UserService;
@@ -60,9 +59,17 @@ public class AuthorizeController {
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
-            user.setName(githubUser.getName());
+            if(githubUser.getName() == null || githubUser.getName() == ""){
+                user.setName(UserConstant.DEFAULTNAME);
+            }else{
+                user.setName(githubUser.getName());
+            }
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setAvatarUrl(githubUser.getAvatarUrl());
+            if(githubUser.getAvatarUrl() == null || githubUser.getAvatarUrl() == ""){
+                user.setName(UserConstant.DEFAULTAVATORURL);
+            }else{
+                user.setAvatarUrl(githubUser.getAvatarUrl());
+            }
             userService.createOrUpdate(user);
             response.addCookie(new Cookie("token",token));
             return "redirect:/";

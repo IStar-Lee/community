@@ -12,8 +12,9 @@ body {
     float: right;
 }
 .img-size {
-    width: 60px;
-    height: 60px;
+    margin-top: 10px;
+    width: 45px;
+    height: 45px;
 }
 .nav-backimg {
     background-image: url("/img/nav-img.png");
