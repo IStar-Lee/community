@@ -14,8 +14,52 @@
 ## 工具  
 [Git](https://git-scm.com/downloads)  
 [VP 时序图画图工具](https://www.visual-paradigm.com/cn/)   
-[Lombok工具](https://projectlombok.org/)
+[Lombok工具](https://projectlombok.org/)  
+[postman](https://chrome.google.com/webstore/detail/tabbed-postman-rest-clien/coohjcphdfgbiolnekdpbcijmhambjff)
+
 ## 脚本
 ```bash
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate   //运行Mybatis Generator
 ```
+##数据库
+```bash
+CREATE TABLE `communityuser` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ACCOUNT_ID` VARCHAR(100) NOT NULL,
+  `NAME` VARCHAR(20) NOT NULL,
+  `TOKEN` CHAR(100) NOT NULL,
+  `GMT_CREATE` BIGINT(20) NOT NULL,
+  `GMT_MODIFY` BIGINT(20) NOT NULL,
+  `AVATAR_URL` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `question` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `TITLE` VARCHAR(50) NOT NULL COMMENT '问题标题',
+  `DESCRIPTION` VARCHAR(1000) NOT NULL COMMENT '问题描述',
+  `GMT_CREATE` BIGINT(20) NOT NULL COMMENT '问题创建时间',
+  `GMT_MODIFY` BIGINT(20) NOT NULL COMMENT '问题修改时间',
+  `CREATOR` INT(11) NOT NULL COMMENT '问题创建者',
+  `COMMENT_COUNT` INT(10) UNSIGNED ZEROFILL NOT NULL COMMENT '评论数',
+  `VIEW_COUNT` INT(10) UNSIGNED ZEROFILL NOT NULL COMMENT '浏览数',
+  `LIKE_COUNT` INT(10) UNSIGNED ZEROFILL NOT NULL COMMENT '喜欢数',
+  `TAG` VARCHAR(50) NOT NULL COMMENT '标签',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `comment` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `PARENT_ID` BIGINT(20) NOT NULL,
+  `TYPE` BIGINT(20) NOT NULL,
+  `COMMENTATOR` INT(11) NOT NULL,
+  `GMT_CREATE` BIGINT(20) NOT NULL,
+  `GMT_MODIFIED` BIGINT(20) NOT NULL,
+  `LIKE_COUNT` BIGINT(20) NOT NULL,
+  `CONTENT` VARCHAR(1000) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+```
+

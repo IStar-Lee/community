@@ -25,4 +25,11 @@
         view_count = view_count+#{viewCount,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <!--    自定义sql，实现comment_count自增-->
+    <update id="incCommentCount" parameterType="life.mastar.community.community.model.Question">
+        update question
+        set
+        comment_count = comment_count+#{commentCount,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

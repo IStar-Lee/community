@@ -24,7 +24,7 @@ public class QuestionController {
      * @return
      */
     @GetMapping("/question/{id}")
-    public String question(@PathVariable (name = "id") Integer id, Model model){
+    public String question(@PathVariable (name = "id") Long id, Model model){
         QuestionDTO questionDTO = questionService.getById(id);
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
@@ -39,7 +39,7 @@ public class QuestionController {
      * @return
      */
     @GetMapping("/question/{id}/{isDeleteQuestion}")
-    public String delete(@PathVariable (name = "id") Integer id, Model model,
+    public String delete(@PathVariable (name = "id") Long id, Model model,
                          @PathVariable (name = "isDeleteQuestion") String isDeleteQuestion){
         if("delete".equals(isDeleteQuestion)){
             questionService.deleteById(id);

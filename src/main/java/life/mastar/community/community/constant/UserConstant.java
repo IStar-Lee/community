@@ -7,7 +7,7 @@ public class UserConstant {
     /**
      * 匿名用户id
      */
-    public static final int DEFAULTID=34;
+    public static final Long DEFAULTID=0L;
     /**
      * 从第三方登录，如果没有名字设置为“佚名”
      */
