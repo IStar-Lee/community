@@ -3,6 +3,7 @@ package life.mastar.community.community.mapper;
 import java.util.List;
 import life.mastar.community.community.model.Comment;
 import life.mastar.community.community.model.CommentExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
