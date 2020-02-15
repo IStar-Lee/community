@@ -11,11 +11,11 @@ $(function () {
                 closeOnConfirm: false,
                 closeOnCancel: true
             },
-            function(isConfirm){
+            function (isConfirm) {
                 if (isConfirm) {
                     var id = document.getElementById("questionId").value;
                     var temp = document.createElement("form");
-                    temp.action = "/question/"+id+"/delete";
+                    temp.action = "/question/" + id + "/delete";
                     temp.method = "get";
                     temp.style.display = "none";
                     document.body.appendChild(temp);
@@ -24,3 +24,28 @@ $(function () {
             });
     })
 })
+
+function post() {
+    var questionId = $("#question_id").val();
+    var content = $("#comment-content").val();
+    $.ajax({
+        type: "POST",
+        url: "/comment",
+        contentType: "application/json",
+        data: JSON.stringify({
+                "parentId": questionId,
+                "content": content,
+                "type": 1
+            }
+        ),
+        success: function (response) {
+            if(response.code == 200){
+                $("#comment-section").hide();
+            }else{
+                alert(response.message);
+            }
+        },
+        dataType: "json"
+    });
+}
+

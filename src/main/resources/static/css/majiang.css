@@ -69,4 +69,21 @@ body {
     margin-top: 300px;
 }
 
+.btn-reply {
+    margin: 15px ;
+    float: right;
+}
+.info-commentator {
+    margin-bottom: 15px;
+}
+.commentator {
+    padding-top: 20px;
+}
+
+#comment-section {
+    margin-top: 15px;
+}
+
+
+
 
