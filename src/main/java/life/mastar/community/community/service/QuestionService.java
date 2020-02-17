@@ -55,7 +55,9 @@ public class QuestionService {
             page = totalPage;
         }
         paginationDTO.setPagination(totalPage,page);
-        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offSet, size));//从question表中查所有的数据,并分页
+        QuestionExample example1 = new QuestionExample();
+        example1.setOrderByClause("GMT_MODIFY DESC");
+        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offSet, size));//从question表中查所有的数据,并分页
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questionList) {
             QuestionDTO questionDTO = new QuestionDTO();

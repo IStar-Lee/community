@@ -28,6 +28,21 @@ $(function () {
 function post() {
     var questionId = $("#question_id").val();
     var content = $("#comment-content").val();
+    if (!content){
+        swal({
+            title: "提交回复",
+            text: "回复内容不能为空，请填写回复内容后重新提交！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            customClass: "custom_swal"
+        })
+        return;
+    }
     $.ajax({
         type: "POST",
         url: "/comment",
@@ -41,6 +56,7 @@ function post() {
         success: function (response) {
             if(response.code == 200){
                 $("#comment-section").hide();
+                window.location.reload();
             }else{
                 if(response.code == 2001){//解决没有登录直接回复问题
                     top.swal({

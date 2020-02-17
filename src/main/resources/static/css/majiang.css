@@ -75,6 +75,7 @@ body {
 }
 .info-commentator {
     margin-bottom: 15px;
+    float: left;
 }
 .commentator {
     padding-top: 20px;
@@ -132,7 +133,15 @@ body {
     white-space: nowrap;/*不换行*/
     text-overflow:ellipsis;/*超出部分文字以...显示*/
     color: black;
+    width: 500px;
 }
+.question-title {
+    margin-top: 30px;
+}
+.submit-reply {
+    margin-bottom: 0;
+}
+
 
 
 
