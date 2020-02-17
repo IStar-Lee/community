@@ -1,6 +1,6 @@
 package life.mastar.community.community.Controller;
 
-import life.mastar.community.community.dto.CommentDTO;
+import life.mastar.community.community.dto.CommentCreateDTO;
 import life.mastar.community.community.dto.ResultDTO;
 import life.mastar.community.community.exception.CustomizeErrorCode;
 import life.mastar.community.community.model.Comment;
@@ -22,7 +22,7 @@ public class CommentController {
     private CommentService commentService;
     @ResponseBody
     @RequestMapping(value = "/comment" , method = RequestMethod.POST)
-    public Object post(@RequestBody CommentDTO commentDTO, HttpServletRequest request){
+    public Object post(@RequestBody CommentCreateDTO commentDTO, HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         if(user==null){
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);

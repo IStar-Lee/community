@@ -17,6 +17,7 @@
 <div class="container-fluid main profile community-content-location">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!--问题-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4><span th:text="${question.title}"></span></h4>
                 <span class="text-desc">
@@ -25,7 +26,8 @@
                        |  发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
             </span>
                 <hr>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-des"
+                     th:text="${question.description}"></div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <a th:href="@{'/publish/'+${question.id}}" class="community-menu hover"
                    th:if="${session.user != null && session.user.id == question.creator}">
@@ -37,7 +39,31 @@
                 <input type="hidden" id="questionId" th:value="${question.id}">
             </span>
             </div>
+            <!--回复列表-->
+            <h4 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span th:text="${question.commentCount}"></span> 个回复
+            </h4>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hr-sp">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 list-sp" th:each="comment : ${comment}">
+                <div class="media menu">
+                    <div class="media-left">
+                        <img class="media-object img-rounded img-size" th:src="${comment.user.avatarUrl}">
+                    </div>
+                    <div class="media-body">
+                        <span class="media-heading" th:text="${comment.user.name}"></span>
+                        <div class="content" th:text="${comment.content}"></div>
+                        <div class="hr-sp comment-menu">
+                            <span class="glyphicon glyphicon-thumbs-up comment-icon"></span>
+                            <span class="glyphicon glyphicon-comment comment-icon"></span>
+                            <span class="comment-date"
+                                  th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            </div>
 
+            <!--回复框-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment-section">
                 <div class="media info-commentator">
                     <div class="media-left">
@@ -56,7 +82,7 @@
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="list-group section">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h5>发起人</h5>
+                    <h4>发起人</h4>
                     <div class="media">
                         <div class="media-left">
                             <img class="media-object img-circle img-size" th:src="${question.user.avatarUrl}">
@@ -68,7 +94,7 @@
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h5>相关问题</h5>
+                    <h4>相关问题</h4>
                 </div>
             </div>
         </div>

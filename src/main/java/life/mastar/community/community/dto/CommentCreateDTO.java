@@ -1,14 +1,12 @@
 package life.mastar.community.community.dto;
 
-import life.mastar.community.community.model.User;
 import lombok.Data;
 
 /**
- * 从数据库中查的Comment
+ * 添加评论内容需要用的实体类
  */
 @Data
-public class CommentDTO {
-    private Long id;
+public class CommentCreateDTO {
     private Long parentId;
     private Integer type;
     private Long commentator;
@@ -16,5 +14,4 @@ public class CommentDTO {
     private Long gmtModified;
     private Long likeCount;
     private String content;
-    private User user;
 }
