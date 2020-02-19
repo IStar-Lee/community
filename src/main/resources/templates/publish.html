@@ -38,7 +38,7 @@
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs active" role="tablist">
-                            <li role="presentation" th:each="selectedCategory:${tags}">
+                            <li role="presentation" th:each="selectedCategory,selectedCategoryStat:${tags}" th:class="${selectedCategoryStat.first ? 'active':''}">
                                 <a th:href="${'#'+selectedCategory.getCategoryName()}"
                                    th:text="${selectedCategory.getCategoryName()}"
                                    aria-controls="home" role="tab" data-toggle="tab"></a>
@@ -47,8 +47,9 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane" th:id="${selectedCategory.categoryName}"
-                                 th:each="selectedCategory:${tags}">
+                            <div role="tabpanel" th:id="${selectedCategory.categoryName}"
+                                 th:each="selectedCategory,selectedCategoryStat:${tags}"
+                                 th:class="${selectedCategoryStat.first ? 'active tab-pane':'tab-pane'}">
                                 <span class="label label-info question-tag "
                                       th:each="selectedTag:${selectedCategory.getTags()}">
                                     <span class="glyphicon glyphicon-tags"></span>

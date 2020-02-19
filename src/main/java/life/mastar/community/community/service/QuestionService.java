@@ -116,6 +116,7 @@ public class QuestionService {
         paginationDTO.setPagination(totalPage,page);//分页信息
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
+        questionExample.setOrderByClause("GMT_MODIFY DESC");
         List<Question> questionList = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offSet, size));//从question表中查所有的数据,并分页
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
