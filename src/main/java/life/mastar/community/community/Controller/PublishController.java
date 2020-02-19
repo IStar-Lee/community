@@ -1,5 +1,6 @@
 package life.mastar.community.community.Controller;
 
+import life.mastar.community.community.cache.TagCache;
 import life.mastar.community.community.dto.QuestionDTO;
 import life.mastar.community.community.model.Question;
 import life.mastar.community.community.model.User;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static life.mastar.community.community.cache.TagCache.filterInvalid;
 
 /**
  * 发布问题处理
@@ -35,6 +38,7 @@ public class PublishController {
         model.addAttribute("description",questionDTO.getDescription());
         model.addAttribute("tag",questionDTO.getTag());
         model.addAttribute("id",questionDTO.getId());
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
     /**
@@ -42,7 +46,8 @@ public class PublishController {
      * @return
      */
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
     /**
@@ -59,6 +64,7 @@ public class PublishController {
         model.addAttribute("tag",tag);
         model.addAttribute("title",title);
         model.addAttribute("description",description);
+        model.addAttribute("tags", TagCache.get());
         if(title == null || title.equals("")){
             model.addAttribute("error","标题不能为空！");
             return "publish";
@@ -69,6 +75,10 @@ public class PublishController {
         }
         if(tag == null || tag.equals("")){
             model.addAttribute("error","标签不能为空！");
+            return "publish";
+        }
+        if(filterInvalid(tag).length()!=0){
+            model.addAttribute("error","标签违规："+filterInvalid(tag));
             return "publish";
         }
         //首先获取到当前登录用户的信息

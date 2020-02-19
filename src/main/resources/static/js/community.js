@@ -127,21 +127,20 @@ function openTwoLevelComment(e) {
                         "class": "media-left"
                     }).append($("<img/>", {
                         "class": "media-object img-rounded img-size",
-                        "src":comment.user.avatarUrl
+                        "src": comment.user.avatarUrl
                     }));
 
                     var mediaBodyElement = $("<div/>", {
                         "class": "media-body"
                     }).append($("<span/>", {
                         "class": "media-heading",
-                        "html":comment.user.name
+                        "html": comment.user.name
                     })).append($("<div/>", {
-                        "class":"normal-font",
-                        "html":comment.content
-                    })).append($("<div/>", {
-                    }).append($("<span/>", {
+                        "class": "normal-font",
+                        "html": comment.content
+                    })).append($("<div/>", {}).append($("<span/>", {
                         "class": "comment-date",
-                        "html":moment(comment.gmtCreate).format("YYYY-MM-DD")
+                        "html": moment(comment.gmtCreate).format("YYYY-MM-DD")
                     })));
                     var mediaElement = $("<div/>", {
                         "class": "media menu"
@@ -159,9 +158,22 @@ function openTwoLevelComment(e) {
             e.setAttribute("data-collapse", "in");
             e.classList.add("active");
         }
-
-
     }
 
-
+}
+// 点击publish页面标签input
+function showTags() {
+    $("#publish-tags").show()
+}
+//选择标签
+function selectedTag(e) {
+    var value = e.getAttribute("data-tag");
+    var previous = $("#tag").val()
+    if (previous.indexOf(value) == -1){
+        if(previous){
+            $("#tag").val(previous+","+value)
+        }else {
+            $("#tag").val(value)
+        }
+    }
 }
