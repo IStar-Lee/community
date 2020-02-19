@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 中间层，service，这里的QuestionService可以使用UserMapper和QuestionMapper
@@ -187,5 +190,23 @@ public class QuestionService {
         question.setId(id);
         question.setViewCount(1);
         questionExtMapper.incView(question);
+    }
+
+    public List<QuestionDTO> selectRelated(QuestionDTO queryQuestionDTO) {
+        String tag = queryQuestionDTO.getTag();
+        if (tag == null || tag.equals("")){
+            return  new ArrayList<>();
+        }
+        Question question = new Question();
+        question.setId(queryQuestionDTO.getId());
+        question.setTag(tag.replace(",","|"));
+        List<Question> relatedQuestion = questionExtMapper.selectRelated(question);
+        //将查到的相关问题编程QuestionDTO型
+        List<QuestionDTO> questionDTOS = relatedQuestion.stream().map(q -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q, questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+        return questionDTOS;
     }
 }

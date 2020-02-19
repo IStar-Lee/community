@@ -2,65 +2,81 @@ body {
     background-color: #efefef;
     /*background-image: url("/img/body.png");*/
 }
+
 .text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
 }
+
 .btn-publish {
     margin-bottom: 15px;
     float: right;
 }
+
 .img-size {
     margin-top: 10px;
     width: 45px;
     height: 45px;
 }
+
 .nav-backimg {
     background-image: url("/img/nav-img.png");
 }
+
 .pagination-location {
     float: right;
     margin-right: 100px;
 }
+
 .profile .section {
     margin-top: 20px;
 }
+
 .community-menu {
     color: #999;
     font-size: 12px;
 }
+
 .hover:hover {
-    text-decoration:none;
+    text-decoration: none;
 }
+
 .hover:active {
-    text-decoration:none;
+    text-decoration: none;
 }
+
 .hover:visited {
-    text-decoration:none;
+    text-decoration: none;
 }
+
 .title {
     color: #2e6da4;
-    font-weight: bold ;
+    font-weight: bold;
 }
+
 .community-content-location {
     width: 1140px;
     margin: auto;
     background-color: white;
 }
+
 .community-nav-location {
     width: 1140px;
     margin: auto;
 }
+
 .nav-location {
     margin-bottom: 50px;
 }
+
 .community-delete-style {
     margin-left: 30px;
     cursor: pointer;
 }
+
 .community-delete-style:hover {
-    color: rgb(35,82,124);
+    color: rgb(35, 82, 124);
 }
 
 .hero-unit {
@@ -70,13 +86,15 @@ body {
 }
 
 .btn-reply {
-    margin: 15px ;
+    margin: 15px;
     float: right;
 }
+
 .info-commentator {
     margin-bottom: 15px;
     float: left;
 }
+
 .commentator {
     padding-top: 20px;
 }
@@ -84,86 +102,127 @@ body {
 #comment-section {
     margin-top: 15px;
 }
+
 .list-sp {
     margin-top: 15px;
 }
+
 .hr-sp {
     margin-top: 0;
     color: #999;
 }
+
 .menu {
     float: left;
     margin-top: 0;
 }
-.comment-date{
+
+.comment-date {
     float: right;
     color: #999999;
     font-weight: normal;
 }
+
 .comment-icon {
     margin-right: 20px;
     font-size: 16px;
     cursor: pointer;
 }
+
 .glyphicon-comment:before {
     content: "\e111";
     vertical-align: middle;
 }
+.glyphicon-pencil:before {
+    content: "\270f";
+    vertical-align: middle;
+}
+
 .comment-menu {
     margin-top: 10px;
 }
+
 .comment-icon:hover {
     color: #2b669a;
 }
+
 .active {
     color: #2b669a;
 }
+
 .media-body {
     color: #2b669a;
     font-weight: bold;
 }
+
 .content {
     color: #0f0f0f;
     font-weight: normal;
     margin-top: 5px;
     /*折行显示*/
-    white-space:normal;
-    word-break:break-all;
-    word-wrap:break-word;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
 }
+
 .question-des {
     /*折行显示*/
-    white-space:normal;
-    word-break:break-all;
-    word-wrap:break-word;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
 }
+
 .description {
     overflow: hidden;
-    white-space: nowrap;/*不换行*/
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
+    white-space: nowrap; /*不换行*/
+    text-overflow: ellipsis; /*超出部分文字以...显示*/
     color: black;
     width: 500px;
 }
+
 .question-title {
     margin-top: 30px;
 }
+
 .submit-reply {
     margin-bottom: 0;
 }
+
 .two-level-comment {
     margin-top: 10px;
     border: 1px solid #eeeeee;
 }
+
 .comment {
     margin: 10px 0;
 }
+
 .comment-input {
     margin-top: 10px;
 }
+
 .normal-font {
     font-size: 14px;
     font-weight: normal;
     color: black;
+}
+
+.question-tag {
+    margin-right: 5px;
+}
+.related-question-ul {
+    padding-left: 0;
+}
+.related-question-li {
+    list-style: none;
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap; /*不换行*/
+    text-overflow: ellipsis; /*超出部分文字以...显示*/
+}
+.related-question-title{
+    text-decoration: none;
+
 }
 
 

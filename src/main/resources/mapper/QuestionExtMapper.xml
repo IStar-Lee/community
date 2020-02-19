@@ -32,4 +32,8 @@
         comment_count = comment_count+#{commentCount,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
+<!--    通过传入一个question（id,tag），使用正则表达式，找到这个问题的相关问题-->
+    <select id="selectRelated" parameterType="life.mastar.community.community.model.Question" resultMap="BaseResultMap">
+        select * from question where id!=#{id} and tag REGEXP #{tag}
+    </select>
 </mapper>
