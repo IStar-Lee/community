@@ -7,9 +7,10 @@ import lombok.Data;
  * 关注的是在回复问题或评论的时候，相关的异常处理
  */
 @Data
-public class ResultDTO {
+public class ResultDTO<T> {
     private Integer code;
     private String message;
+    private T data;
 
     public static ResultDTO errorOf(Integer code, String message) {
         ResultDTO requestDTO = new ResultDTO();
@@ -28,4 +29,13 @@ public class ResultDTO {
         requestDTO.setMessage("请求成功");
         return requestDTO;
     }
+    public static <T> ResultDTO okOf(T t){
+        ResultDTO requestDTO = new ResultDTO();
+        requestDTO.setCode(200);
+        requestDTO.setMessage("请求成功");
+        requestDTO.setData(t);
+        return requestDTO;
+    }
+
+
 }

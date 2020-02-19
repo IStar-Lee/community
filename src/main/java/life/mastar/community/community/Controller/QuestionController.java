@@ -2,6 +2,7 @@ package life.mastar.community.community.Controller;
 
 import life.mastar.community.community.dto.CommentDTO;
 import life.mastar.community.community.dto.QuestionDTO;
+import life.mastar.community.community.enums.CommentTypeEnum;
 import life.mastar.community.community.model.Comment;
 import life.mastar.community.community.model.Question;
 import life.mastar.community.community.service.CommentService;
@@ -34,7 +35,7 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Long id, Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.listByQuestionOrCommentId(id, CommentTypeEnum.QUESTION);
         questionService.incView(id);
         model.addAttribute("question", questionDTO);
         model.addAttribute("comment", comments);

@@ -97,16 +97,25 @@ body {
 }
 .comment-date{
     float: right;
+    color: #999999;
+    font-weight: normal;
 }
 .comment-icon {
     margin-right: 20px;
     font-size: 16px;
     cursor: pointer;
 }
+.glyphicon-comment:before {
+    content: "\e111";
+    vertical-align: middle;
+}
 .comment-menu {
     margin-top: 10px;
 }
 .comment-icon:hover {
+    color: #2b669a;
+}
+.active {
     color: #2b669a;
 }
 .media-body {
@@ -141,7 +150,21 @@ body {
 .submit-reply {
     margin-bottom: 0;
 }
-
+.two-level-comment {
+    margin-top: 10px;
+    border: 1px solid #eeeeee;
+}
+.comment {
+    margin: 10px 0;
+}
+.comment-input {
+    margin-top: 10px;
+}
+.normal-font {
+    font-size: 14px;
+    font-weight: normal;
+    color: black;
+}
 
 
 
