@@ -2,6 +2,8 @@ package life.mastar.community.community.service;
 
 import life.mastar.community.community.dto.CommentDTO;
 import life.mastar.community.community.enums.CommentTypeEnum;
+import life.mastar.community.community.enums.NotificationStatusEnum;
+import life.mastar.community.community.enums.NotificationTypeEnum;
 import life.mastar.community.community.exception.CustomizeErrorCode;
 import life.mastar.community.community.exception.CustomizeException;
 import life.mastar.community.community.mapper.*;
@@ -32,11 +34,13 @@ public class CommentService {
     private UserMapper userMapper;
     @Autowired
     private CommentExtMapper commentExtMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
     /**
      * 回复评论到数据库
      */
     @Transactional
-    public void insert(Comment comment) {
+    public void insert(Comment comment,User user) {
         if (comment.getParentId() == null || comment.getParentId() == 0) {
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
         }
@@ -53,6 +57,12 @@ public class CommentService {
             commentMapper.insert(comment);
             dbComment.setCommentCount(1);
             commentExtMapper.incCommentCount(dbComment);
+            Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+            if (question == null) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+            //发送通知
+            createNotify(comment.getCommentator(),dbComment.getParentId(),question.getCreator(), NotificationStatusEnum.UNREAD.getStatus(), NotificationTypeEnum.REPLY_COMMENT.getType(),user.getName(),question.getTitle());
         } else {
             //回复的是问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -62,7 +72,32 @@ public class CommentService {
             commentMapper.insert(comment);
             question.setCommentCount(1);
             questionExtMapper.incCommentCount(question);
+            //发送通知
+            createNotify(comment.getCommentator(),question.getId(),question.getCreator(), NotificationStatusEnum.UNREAD.getStatus(), NotificationTypeEnum.REPLY_QUESTION.getType(),user.getName(),question.getTitle());
         }
+    }
+
+    /**
+     * 发送通知 向数据库中set值
+     * @param notifier      谁回复了你
+     * @param outerId       问题的id
+     * @param receiver      谁接受通知
+     * @param status        已读  未读
+     * @param type          回复的是问题还是评论
+     * @param notifierName  回复人的姓名
+     * @param outerTitle    问题的标题
+     */
+    private void createNotify(Long notifier,Long outerId,Long receiver,Integer status,Integer type,String notifierName,String outerTitle){
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setNotifier(notifier);
+        notification.setOuterid(outerId);
+        notification.setReceiver(receiver);
+        notification.setStatus(status);
+        notification.setType(type);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notificationMapper.insert(notification);
     }
 
     /**

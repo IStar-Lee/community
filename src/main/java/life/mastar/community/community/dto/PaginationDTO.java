@@ -9,8 +9,8 @@ import java.util.List;
  * 分页信息，包括要在前端index页面返回的问题列表
  */
 @Data
-public class PaginationDTO {
-    private List<QuestionDTO> questions;    //问题列表
+public class PaginationDTO<T> {
+    private List<T> data;    //问题列表
     private boolean showPrevious;           //是否展示上一页
     private boolean showNext;               //是否展示下一页
     private boolean showFirstPage;          //是否展示首页

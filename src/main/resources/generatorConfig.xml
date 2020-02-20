@@ -34,5 +34,9 @@
             <columnOverride column="description" jdbcType="VARCHAR"></columnOverride>
         </table>
         <table tableName="comment" domainObjectName="Comment" ></table>
+        <table tableName="notification" domainObjectName="Notification" >
+            <columnOverride column="notifierName" jdbcType="VARCHAR"></columnOverride>
+            <columnOverride column="outerTitle" jdbcType="VARCHAR"></columnOverride>
+        </table>
     </context>
 </generatorConfiguration>

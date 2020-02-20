@@ -6,7 +6,10 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
     QUESTION_NOT_FOUND(2002,"你找的问题不存在，要不换个试试？"),
     TARGET_PARAM_NOT_FOUND(2003,"未选中任何问题或评论进行回复！"),
     TYPE_PARAM_WRONG(2004,"回复的评论类型错误！"),
-    COMMENT_NOT_FOUND(2005,"您回复的评论不存在，要不换一个试试？");
+    COMMENT_NOT_FOUND(2005,"您回复的评论不存在，要不换一个试试？"),
+    NOTIFICATION_NOT_FOUND(2006,"这个消息不存在！"),
+    READ_NOTIFICATION_FAIL(2007,"通知读取失败！")
+    ;
     private Integer code;
     private String message;
     CustomizeErrorCode(Integer code,String message) {

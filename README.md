@@ -62,5 +62,18 @@ CREATE TABLE `comment` (
   `COMMENT_COUNT` int(11) NOT NULL DEFAULT '0' COMMENT '评论数',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8
-```
 
+
+CREATE TABLE `notification` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `notifier` BIGINT(20) NOT NULL COMMENT '谁回复了你',
+  `receiver` BIGINT(20) NOT NULL COMMENT '谁收到回复',
+  `outerid` BIGINT(20) NOT NULL COMMENT '回复的是评论，问题还是点赞了问题，评论...',
+  `type` INT(11) NOT NULL COMMENT '回复的是评论，问题还是点赞了问题，评论...的类型',
+  `gmt_create` BIGINT(20) NOT NULL,
+  `status` INT(11) NOT NULL DEFAULT '0' COMMENT '是否已读通知',
+  `notifier_name` VARCHAR(20) DEFAULT NULL COMMENT '回复人的姓名',
+  `outer_title` VARCHAR(256) DEFAULT NULL COMMENT '问题的title',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+```

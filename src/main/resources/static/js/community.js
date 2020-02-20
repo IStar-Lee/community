@@ -68,6 +68,7 @@ function comment(targetId, type, content) {
             }
         ),
         success: function (response) {
+            debugger;
             if (response.code == 200) {
                 $("#comment-section").hide();
                 window.location.reload();
