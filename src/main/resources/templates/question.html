@@ -107,10 +107,10 @@
                 <hr class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 submit-reply">
                 <div class="media info-commentator">
                     <div class="media-left">
-                        <img class="media-object img-rounded img-size" th:src="${question.user.avatarUrl}">
+                        <img class="media-object img-rounded img-size" th:src="${session.user != null ? session.user.avatarUrl : '/img/default-avatarurl.png'}">
                     </div>
                     <div class="media-body commentator">
-                        <span class="media-heading" th:text="${question.user.name}"></span>
+                        <span class="media-heading" th:text="${session.user != null ? session.user.name : '匿名用户'}"></span>
                     </div>
                 </div>
                 <textarea class="form-control  col-lg-12 col-md-12 col-sm-12 col-xs-12" rows="8"

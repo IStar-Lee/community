@@ -88,6 +88,9 @@ public class CommentService {
      * @param outerTitle    问题的标题
      */
     private void createNotify(Long notifier,Long outerId,Long receiver,Integer status,Integer type,String notifierName,String outerTitle){
+        if(receiver == notifier){
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setNotifier(notifier);
