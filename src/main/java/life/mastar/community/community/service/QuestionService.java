@@ -3,6 +3,7 @@ package life.mastar.community.community.service;
 import life.mastar.community.community.constant.UserConstant;
 import life.mastar.community.community.dto.PaginationDTO;
 import life.mastar.community.community.dto.QuestionDTO;
+import life.mastar.community.community.dto.QuestionQueryDTO;
 import life.mastar.community.community.exception.CustomizeErrorCode;
 import life.mastar.community.community.exception.CustomizeException;
 import life.mastar.community.community.mapper.QuestionExtMapper;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -40,9 +42,15 @@ public class QuestionService {
      * @param size
      * @return
      */
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search,Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
+        String s="";
+        if (search !=null && !search.equals("")){
+            s = search.replace(" ","|");
+        }
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(s);
+        Integer totalCount = (int)questionExtMapper.countBySearch(questionQueryDTO);
         //获取总页数
         Integer totalPage;
         if(totalCount % size == 0){
@@ -58,9 +66,9 @@ public class QuestionService {
             page = totalPage;
         }
         paginationDTO.setPagination(totalPage,page);
-        QuestionExample example1 = new QuestionExample();
-        example1.setOrderByClause("GMT_MODIFY DESC");
-        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offSet, size));//从question表中查所有的数据,并分页
+        questionQueryDTO.setPage(offSet);
+        questionQueryDTO.setSize(size);
+        List<Question> questionList = questionExtMapper.selectBySearch(questionQueryDTO);//从question表中查所有的数据,并分页
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questionList) {
             QuestionDTO questionDTO = new QuestionDTO();
@@ -193,6 +201,11 @@ public class QuestionService {
         questionExtMapper.incView(question);
     }
 
+    /**
+     * 相关问题
+     * @param queryQuestionDTO
+     * @return
+     */
     public List<QuestionDTO> selectRelated(QuestionDTO queryQuestionDTO) {
         String tag = queryQuestionDTO.getTag();
         if (tag == null || tag.equals("")){

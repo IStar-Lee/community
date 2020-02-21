@@ -1,10 +1,8 @@
 package life.mastar.community.community;
 
-        import org.mybatis.spring.annotation.MapperScan;
-        import org.springframework.boot.SpringApplication;
-        import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-        import java.util.UUID;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("life.mastar.community.community")
