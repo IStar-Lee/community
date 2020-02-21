@@ -6,6 +6,7 @@ import life.mastar.community.community.dto.GithubUser;
 import life.mastar.community.community.model.User;
 import life.mastar.community.community.provider.GitHubProvider;
 import life.mastar.community.community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * 获取github上注册的OAuth信息
  */
 @Controller
+@Slf4j
 public class AuthorizeController {
     @Autowired
     private GitHubProvider gitHubProvider;
@@ -75,6 +77,7 @@ public class AuthorizeController {
             return "redirect:/";
         }else{
             //登陆失败
+            log.error("获取github用户错误{}",githubUser);
             return "redirect:/";
         }
     }
