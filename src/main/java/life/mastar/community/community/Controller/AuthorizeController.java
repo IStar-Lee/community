@@ -77,7 +77,7 @@ public class AuthorizeController {
             return "redirect:/";
         }else{
             //登陆失败
-            log.error("获取github用户错误{}",githubUser);
+            log.error("AuthorizeController/callBack（）获取github用户错误{}",githubUser);
             return "redirect:/";
         }
     }

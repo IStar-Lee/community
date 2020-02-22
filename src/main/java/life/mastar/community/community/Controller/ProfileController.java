@@ -29,7 +29,7 @@ public class ProfileController {
     public String profile(@PathVariable("action") String action, Model model,
                           HttpServletRequest request,
                           @RequestParam(name="page" ,defaultValue = "1") Integer page,    //page记录当前页码
-                          @RequestParam(name = "size",defaultValue = "5") Integer size){    //size记录每页显示条数
+                          @RequestParam(name = "size",defaultValue = "10") Integer size){    //size记录每页显示条数
         User user = (User)request.getSession().getAttribute("user");
         if(user == null){
             return "redirect:/";
